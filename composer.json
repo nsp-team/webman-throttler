@@ -1,0 +1,20 @@
+{
+    "name": "nsp-team/webman-throttler",
+    "description": "very Very easy to use a current limiting component, the code is very simple, based on the webman framework.",
+    "license": "MIT",
+    "require": {
+        "php": ">=7.2",
+        "workerman/webman-framework": "^1.2.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "NspTeam\\WebmanThrottler\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "maoxp",
+            "email": "maoxingpei8686@163.com"
+        }
+    ]
+}
