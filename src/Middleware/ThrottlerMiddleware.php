@@ -10,7 +10,6 @@ use Webman\Http\Request;
 use Webman\Http\Response;
 use Webman\MiddlewareInterface;
 
-define('MINUTE', 600);
 
 /**
  * ThrottlerMiddleware
@@ -31,7 +30,12 @@ class ThrottlerMiddleware implements MiddlewareInterface
          */
         $throttler = Container::make(Throttler::class, [Cache::instance()]);
 
-        if ($throttler->check($request->getRemoteIp(), 10, MINUTE, 1) === false) {
+        $config = config('plugin.nsp-team.webman-throttler.app');
+        $capacity = $config['capacity'] ?? 60;
+        $seconds = $config['seconds'] ?? 60;
+        $cost = $config['cost'] ?? 1;
+
+        if ($throttler->check($request->getRemoteIp(), $capacity, $seconds, $cost) === false) {
             return new Response(429, ['Content-Type' => 'application/json'], json_encode(['success' => false, 'msg' => '请求此时太频繁'], JSON_UNESCAPED_UNICODE));
         }
 
