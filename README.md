@@ -13,7 +13,7 @@ webman of webman-throttler plugin
 > 项目地址：https://github.com/nsp-team/webman-throttler
 
 ## 安装
-`composer require tinywan/validate`
+`composer require nsp-team/webman-throttler`
 
 ## 基本用法
 > 默认 开启全局中间件限流
