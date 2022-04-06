@@ -34,9 +34,12 @@ class ThrottlerMiddleware implements MiddlewareInterface
         $capacity = $config['capacity'] ?? 60;
         $seconds = $config['seconds'] ?? 60;
         $cost = $config['cost'] ?? 1;
+        $customerHandle = $config['customer_handle'];
 
         if ($throttler->check($request->getRemoteIp(), $capacity, $seconds, $cost) === false) {
-            return new Response(429, ['Content-Type' => 'application/json'], json_encode(['success' => false, 'msg' => '请求此时太频繁'], JSON_UNESCAPED_UNICODE));
+            $newClass = $customerHandle['class'];
+            return new $newClass(... \array_values($customerHandle['constructor']));
+            //return new Response(429, ['Content-Type' => 'application/json'], json_encode(['success' => false, 'msg' => '请求此时太频繁'], JSON_UNESCAPED_UNICODE));
         }
 
         return $handler($request);
